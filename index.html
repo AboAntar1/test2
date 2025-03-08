@@ -4,35 +4,191 @@
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
   -->
   <base href="/test2/">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
-
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="c_pandel">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
-
   <title>VivoApp Dashboard</title>
   <link rel="manifest" href="manifest.json">
+  
+  <!-- GitHub Pages Universal Router Script -->
+  <script>
+    // This script ensures all URLs use hash-based routing for Flutter web on GitHub Pages
+    (function() {
+      // Get the current path and hash
+      var fullPath = window.location.pathname;
+      var baseHref = '/test2/';
+      var hash = window.location.hash;
+      
+      // If we're at the base URL and there's no hash, add #/
+      if (fullPath === baseHref && !hash) {
+        window.location.href = baseHref + '#/';
+        return;
+      }
+      
+      // If we have a path beyond the base URL
+      if (fullPath.startsWith(baseHref)) {
+        // Extract the actual route path by removing the base path
+        var routePath = fullPath.substr(baseHref.length);
+        
+        // If we have a route path and it's not a file (no dots)
+        if (routePath && !routePath.includes('.')) {
+          // Create the proper hash-based URL that Flutter's router can understand
+          var newUrl = baseHref + '#/' + routePath;
+          
+          // If the original URL had a hash, append it to our route
+          // (handles cases like /test2/vendor-login#section1)
+          if (hash) {
+            // Replace the '#' at the start of the hash with a suitable delimiter
+            // like a query parameter or path segment
+            var hashContent = hash.substring(1);
+            if (hashContent) {
+              newUrl += '/' + hashContent;
+            }
+          }
+          
+          // Redirect to the hash-based URL
+          window.location.href = newUrl;
+          return;
+        }
+      }
+    })();
+  </script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #4B3B6C; /* Purple background color matching the logo */
+      overflow: hidden;
+    }
+    
+    .logo-container {
+      position: relative;
+      width: 100px;
+      height: 120px;
+      transform: scale(0.8);
+      animation: pulse 2s infinite ease-in-out;
+    }
+    
+    /* First pill (gray, top) */
+    .pill-1 {
+      position: absolute;
+      width: 60px;
+      height: 25px;
+      background-color: #A99FB2; /* Gray color from logo */
+      border-radius: 12.5px;
+      top: 10px;
+      left: 15px;
+      transform: rotate(45deg);
+      animation: moveDown 1.6s infinite ease-in-out;
+    }
+    
+    /* Second pill (white, middle) */
+    .pill-2 {
+      position: absolute;
+      width: 60px;
+      height: 25px;
+      background-color: #FFFFFF;
+      border-radius: 12.5px;
+      top: 40px;
+      left: 30px;
+      transform: rotate(-45deg);
+      animation: moveLeft 1.6s infinite ease-in-out;
+    }
+    
+    /* Small circle (gray, positioned lower) */
+    .circle {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-color: #A99FB2; /* Gray color from logo */
+      border-radius: 50%;
+      top: 66px;
+      right: 15px;
+      animation: fadeInOut 1.6s infinite ease-in-out;
+    }
+    
+    /* Third pill (white, bottom) */
+    .pill-3 {
+      position: absolute;
+      width: 60px;
+      height: 25px;
+      background-color: #FFFFFF;
+      border-radius: 12.5px;
+      bottom: 10px;
+      left: 15px;
+      transform: rotate(45deg);
+      animation: moveUp 1.6s infinite ease-in-out;
+    }
+    
+    /* Animation for subtle pulsing of the entire logo */
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.8); }
+      50% { transform: scale(0.85); }
+    }
+    
+    /* Animation for the top pill movement */
+    @keyframes moveDown {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 1; }
+      25% { transform: rotate(45deg) translateY(2px); opacity: 0.8; }
+      50% { transform: rotate(45deg) translateY(0); opacity: 1; }
+    }
+    
+    /* Animation for the middle pill movement */
+    @keyframes moveLeft {
+      0%, 100% { transform: rotate(-45deg) translateX(0); opacity: 1; }
+      25% { transform: rotate(-45deg) translateX(-2px); opacity: 0.8; }
+      50% { transform: rotate(-45deg) translateX(0); opacity: 1; }
+    }
+    
+    /* Animation for the bottom pill movement */
+    @keyframes moveUp {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 1; }
+      25% { transform: rotate(45deg) translateY(-2px); opacity: 0.8; }
+      50% { transform: rotate(45deg) translateY(0); opacity: 1; }
+    }
+    
+    /* Animation for the circle fading effect */
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.95); }
+    }
+    
+    /* Subtle shadow behind the logo elements to create depth */
+    .pill-1, .pill-2, .pill-3, .circle {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
 </head>
 <body>
+  <div class="logo-container">
+    <div class="pill-1"></div>
+    <div class="pill-2"></div>
+    <div class="circle"></div>
+    <div class="pill-3"></div>
+  </div>
+
+  <script>
+    // This script will hide the loading animation once Flutter is initialized
+    window.addEventListener('flutter-first-frame', function() {
+      document.querySelector('.logo-container').style.display = 'none';
+    });
+  </script>
+  
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
